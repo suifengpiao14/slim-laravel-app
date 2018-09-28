@@ -15,19 +15,15 @@ use Slim\Container;
 
 class ExampleController extends Controller
 {
-
     public function __construct(Container $container = null)
     {
         parent::__construct($container);
     }
 
-
     public function index(Request $request, Response $response)
     {
-        $data='hello world';
+        $data = 'hello world';
 
-        return response->write($data);
+        return $response->write($data);
     }
-
-
 }
