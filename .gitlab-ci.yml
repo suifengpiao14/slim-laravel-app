@@ -1,0 +1,10 @@
+dev_server:
+    only:
+        - dev
+    tags:
+        - devdeploy
+    variables:
+        CI_DEBUG_TRACE: "true"
+    script:
+        - "sudo cp -rf $CI_PROJECT_DIR /mnt/www/"
+        - "sudo chmod -R 777 /mnt/www/$CI_PROJECT_NAME/storage"

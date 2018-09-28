@@ -1,26 +1,40 @@
 <?php
+
+$appEnv = $_SERVER['APP_ENV'] ?? 'prod';
+defined('APP_ENV') or define('APP_ENV', $appEnv);
+defined('APP_ENV_DEV') or define('APP_ENV_DEV', 'dev' == $appEnv);
+defined('APP_ENV_TEST') or define('APP_ENV_TEST', 'test' == $appEnv);
+defined('APP_ENV_PROD') or define('APP_ENV_PROD', 'prod' == $appEnv || !$appEnv);
+
+define('BASE_PATH', dirname(__DIR__));
+
+require BASE_PATH.'/vendor/autoload.php';
+
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2018/8/4 0004
- * Time: 21:11
+ * 加载环境变量.
  */
-use Dotenv\Dotenv;
-use App\App;
-use Illuminate\Database\Capsule\Manager as Capsule;
-use Noodlehaus\Config;
-session_start();
-require __DIR__ . '/../vendor/autoload.php';
-//Gestion des variables d'environnement
-$dotenv = new Dotenv(__DIR__ . '/../');
+$envFile = '.env';
+// 开发、测试环境加载对应的环境变量文件
+APP_ENV_PROD or $envFile = $envFile.'.'.$appEnv;
+$dotenv = new Dotenv\Dotenv(__DIR__.'/../', $envFile);
 $dotenv->load();
-$app = new App();
-$container = $app->getContainer();
-$config = new Config(__DIR__ . '/../config/database.php');
-$db = $config->get('db');
-// Gestion de la base de donnees avec Eloquent
-$capsule = new Capsule();
-$capsule->addConnection($db);
-$capsule->setAsGlobal();
-$capsule->bootEloquent();
-require __DIR__ . '/../routes/api.php';
+
+// Timezone.
+date_default_timezone_set(env('TIMEZONE', 'Asia/Shanghai'));
+// Encoding.
+mb_internal_encoding('UTF-8');
+
+// Instantiate the app.
+$settings = require BASE_PATH.'/config/settings.php';
+$app = app($settings);
+
+$container = container($app);
+// Set up dependencies.
+require BASE_PATH.'/config/dependencies.php';
+
+// Register middleware.
+require BASE_PATH.'/config/middleware.php';
+
+// Register routes.
+require BASE_PATH.'/routes/api.php';
+require BASE_PATH.'/routes/backend.php';
