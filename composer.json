@@ -1,5 +1,5 @@
 {
-    "name": "rrpadilla/slim3-api-skeleton",
+    "name": "suifengpiao14/slim-laravel-app",
     "description": "Slim 3 API Skeleton with content negotiation and performance in mind.",
     "type": "project",
     "keywords": ["Slim-framework", "API", "Skeleton"],
@@ -7,8 +7,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Rodolfo Ruiz",
-            "email": "rrpadilla@gmail.com"
+            "name": "suifengpiao14",
+            "email": "2912150017@qq.com"
         }
     ],
     "require": {
