@@ -3,7 +3,7 @@
     "description": "Slim 3 API Skeleton with content negotiation and performance in mind.",
     "type": "project",
     "keywords": ["Slim-framework", "API", "Skeleton"],
-    "homepage": "https://github.com/rrpadilla/slim3-api-skeleton",
+    "homepage": "https://github.com/suifengpiao14/slim-laravel-app",
     "license": "MIT",
     "authors": [
         {
@@ -25,7 +25,8 @@
         "phpunit/phpunit": ">=5.5 < 6.0",
 		"zircote/swagger-php": "^2.0",
 		"suifengpiao14/php-pre-commit": "dev-master",
-        "suifengpiao14/nginx-config": "dev-master"
+        "suifengpiao14/nginx-config": "dev-master",
+        "suifengpiao14/deploy": "dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -43,12 +44,12 @@
 		"post-install-cmd": [
             "sh ./vendor/suifengpiao14/php-pre-commit/src/setup.sh",
             "sh ./vendor/suifengpiao14/nginx-config/src/setup.sh",
-            "chmod -R 777 storage"
+			"sh ./vendor/suifengpiao14/deploy/src/setup.sh"
         ],
         "post-update-cmd": [
             "sh ./vendor/suifengpiao14/php-pre-commit/src/setup.sh",
             "sh ./vendor/suifengpiao14/nginx-config/src/setup.sh",
-            "chmod -R 777 storage"
+            "sh ./vendor/suifengpiao14/deploy/src/setup.sh"
         ]
     },
     "config": {

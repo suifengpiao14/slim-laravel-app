@@ -1,59 +1,57 @@
-# Slim 3 API Skeleton
+# Slim 3 API 架构模板
 
-This is an API skeleton using [Slim 3](http://www.slimframework.com) with content negotiation, authentication, error handling, cache and performance in mind.
-Error and exception handling is already configured for you. Check `config/dependencies.php` file. 
+这是API 框架模板，包含目录结构、错误处理，缓存，数据库连接，gitlab-ci自动发布等模块，可通过`config/dependencies.php` 增加自己的依赖
 
-### Content Negotiation
-Content Negotiation is handled using a query parameter and the HTTP Header "Accept".
-- The default query parameter is `"output"` and possible values are (`"json" or "xml"`).
-- If `"output"` parameter is not provided the HTTP Header `"Accept"` is used to determine which `"Content type"`.
-If is not containing `"application/json"` or `"application/xml"` the default output will be `"json"`.
 
-This project use the following packages/components:
-- [Monolog](https://github.com/Seldaek/monolog) for logging.
-- [Slim-HttpCache](https://github.com/slimphp/Slim-HttpCache). [Read more](http://www.slimframework.com/docs/features/caching.html)
-- [Noodlehaus's Config](https://github.com/hassankhan/config) to load `env.php` file.
-- [PHPUnit](https://phpunit.de/) for testing.
+### 返回格式
+返回数据格式由查询参数output（值为json或者xml）或者http "Accept"头信息决定
+- 查询参数含output则有该参数决定，可能的值为`"json" or "xml"`
+- 没有提供output 参数，则有HTTP 头 `"Accept"` 决定返回内容格式。如果Accept 不包含 "application/json"` or `"application/xml"` 则默认为`"json"`
 
-You can integrate any third-party components found on [Packagist](https://packagist.org):
-- [Slim-Csrf](https://github.com/slimphp/Slim-Csrf/). [Read more](http://www.slimframework.com/docs/features/csrf.html)
-- [Slim-Flash](https://github.com/slimphp/Slim-Flash). [Read more](http://www.slimframework.com/docs/features/flash.html)
 
-### Run it:
+
+### 测试:
 
 1. `$ cd my-app`
 2. `$ php -S 0.0.0.0:8888 -t public public/index.php`
-3. Browse to http://localhost:8888
+3. 查看 http://localhost:8888
 
-## Key directories
+## 目录说明
 
-* `app/`: directory contains the core code of your application. All class files within the `App` namespace.
-* `app/Controllers/`: directory contains controllers and actions classes.
-* `app/Handlers/`: directory contains handlers classes (Error, PhpError, NotFound, NotAllowed).
-* `app/Helpers/`: directory contains helpers classes.
-* `app/Middleware/`: directory contains middleware classes.
-* `app/Renders/`: directory contains renders classes for specific responses (json and xml).
-* `bootstrap/`: directory contains files that bootstrap the framework and configure autoloading.
-* `cache/`: directory contains framework generated files for performance optimization such as the route file. Should be writable by your web server.
-* `cache/routes/`: directory is used to store routes generated files. For better performance on production. Should be writable by your web server.
-* `config/`: directory contains all of your application's configuration files (settings, dependencies, middleware).
-* `logs/`: directory contains your application's log files. Should be writable by your web server.
-* `public/`: directory contains the index.php file, which is the entry point for all requests entering your application.
-* `routes/`: directory contains all of the route definitions for your application. By default, 1 route file is included: `routes.php`.
-* `tests/`: directory contains your automated tests. An example [PHPUnit](https://phpunit.de/) is provided out of the box. To run tests: `phpunit -- verbose tests/DefaultRoutesTest.php`.
-* `vendor/`: directory contains your [Composer](https://getcomposer.org/) dependencies.
+* `app/`: 主要逻辑代码目录.
+* `app/Controllers/`:  controllers 和 actions 类目录.
+* `app/Handlers/`: 错误处理类目录.
+* `app/Helpers/`: 帮助目录，含默认Helper类.
+* `app/Middleware/`: 中间件.
+* `app/Renders/`: 响应渲染目录 (json and xml).
+* `bootstrap/`: 启动目录.
+* `storage/cache/`: 缓存目录，需要可写权限.
+* `storage/logs/`: 日志目录.
+* `storage/cache/routes/`: 路由缓存目录，需要可写权限.
+* `config/`: 配置文件目录 (settings, dependencies, middleware).
+* `public/`: web入口目录.
+* `routes/`: 路由目录.
+* `tests/`: dphpunit 测试目录.
+* `vendor/`: 第三方包目录.
 
 ## Key files
 
-* `public/index.php`: entry point to application.
-* `bootstrap/app.php`: bootstrap the framework, configure auto-loading, dependencies, routes, etc.
-* `env.php.dist`: environment settings. Must copy it to env.php and modify that one.
-* `config/dependencies.php`: services for Pimple. Including (Database, Exception/Error handlers, Logger, etc).
-* `config/middleware.php`: application middleware.
-* `config/settings.php`: slim and others configurations. Rewrite Slim default settings (displayErrorDetails, routerCacheFile).
-* `routes/routes.php`: all application routes are here.
-* `app/Controllers/ExampleAction.php`: example Action class.
-* `app/Helpers/ArrayToXml.php`: Helper class to convert array to xml. Used by XmlApiView class. 
-* `app/Renders/ApiView.php`: Render output based on a PSR-7 Request's Accept header.
-* `app/Renders/JsonApiView.php`: view wrapper for json responses (with error code). Return "meta" and "data". "meta" contains "error" (true/false) and "status" (HTTP Status code).
-* `app/Renders/XmlApiView.php`: view wrapper for xml responses (with error code). Return "meta" and "data". "meta" contains "error" (true/false) and "status" (HTTP Status code).
+* `public/index.php`: 入口文件.
+* `public/swagger-ui`: swagger文档ui静态资源.
+* `bootstrap/app.php`: 启动框架，配置自动加载、依赖、路由等.
+* `.env`: 正式环境配置文件.
+* `.env.test`: 测试环境配置文件.
+* `.env.dev`: 开发环境.
+* `config/dependencies.php`: 依赖组件，包括 (数据库, 错误处理, 日志, 等等).
+* `config/middleware.php`: 项目中间件.
+* `config/settings.php`: 配置文件包含 (displayErrorDetails, routerCacheFile 等配置项).
+* `routes/api.php`: 前端api路由.
+* `routes/backend.php`: 后端api路由.
+* `app/Controllers/Api/v1/ExampleController.php`: api v1 版本 ExampleController.php.
+* `app/Controllers/Backend/v1/ExampleController.php`: 后台 v1 版本 ExampleController.php.
+* `app/Controllers/Controller.php`: 控制器基类.
+* `app/Controllers/SwaggerController.php`: api swagger文档类.
+* `app/Helpers/ArrayToXml.php`: 协助将array转xml类. 
+* `app/Renders/ApiView.php`: 基于PSR-7请求头.
+* `app/Renders/JsonApiView.php`: json 返回格式 (包含错误代码). 返回 "meta" 和 "data". "meta" 包含 "error" (true/false) and "status" (HTTP Status code).
+* `app/Renders/XmlApiView.php`: xml 返回格式(with error code). Return "meta" 和 "data". "meta" 包含 "error" (true/false) and "status" (HTTP Status code).

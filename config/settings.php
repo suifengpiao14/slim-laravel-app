@@ -31,6 +31,6 @@ return [
     // Monolog settings
     'logger' => [
         'name' => 'api-logger',
-        'path' => BASE_PATH.'/storage/logs/'.date('Ymd').'.log',
+        'path' => BASE_PATH.'/storage/logs/log',
     ],
 ];
