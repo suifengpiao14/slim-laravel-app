@@ -34,7 +34,7 @@
 * `tests/`: dphpunit 测试目录.
 * `vendor/`: 第三方包目录.
 
-## Key files
+## 文件说明
 
 * `public/index.php`: 入口文件.
 * `public/swagger-ui`: swagger文档ui静态资源.
