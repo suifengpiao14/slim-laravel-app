@@ -24,7 +24,7 @@ class SwaggerController
      * @SWG\Swagger(
      *   schemes={"http"},
      *   @SWG\Info(
-     *     title="用户鉴权微服务接口",
+     *     title="api 框架结构模板",
      *     version="1.0.0",
      *     description="地址：http://auth.microservice.com",
      *     @SWG\Contact(

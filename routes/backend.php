@@ -6,3 +6,5 @@
  * Time: 15:36.
  */
 
+// hello
+$app->get('/backend/v1/example/hello', 'App\\Controllers\\Backend\v1\\ExampleController:hello')->setName('example.hello');

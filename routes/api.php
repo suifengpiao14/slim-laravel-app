@@ -15,6 +15,8 @@ $app->get('/', function (Request $request, Response $response, $arguments = []) 
     return $response->withRedirect('/swagger-ui', 301);
 });
 
+// hello
+$app->get('/api/v1/example/hello', 'App\\Controllers\\Api\v1\\ExampleController:hello')->setName('example.hello');
 
 /*
  *  文档json地址
